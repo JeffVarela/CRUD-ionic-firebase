@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { UsuariosService } from '../service/usuarios.service';
+import { PopInfoComponent } from '../components/pop-info/pop-info.component';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +17,30 @@ export class HomePage {
   usuarios: any[] = [];
 
   constructor(private router: Router,
-    private usuarioServise: UsuariosService) {
+    private usuarioServise: UsuariosService,
+    private popCtrl: PopoverController) {
 
 
 
   }
   ngOnInit(){
    this.getUsuario();
+  }
+
+  /* funcion del pop */
+  async mostrarPop(event){
+    const popover = await this.popCtrl.create({
+      component: PopInfoComponent,
+      event: event,
+      mode: 'ios',
+     // backdropDismiss: false
+
+    });
+
+    await popover.present()
+    const {data} = await popover.onWillDismiss();  //se ejecuta antes de cerrarce
+    console.log('padre:', data);
+
   }
 
   getUsuario() {
@@ -38,6 +57,15 @@ export class HomePage {
       });
       console.log(this.usuarios);
     });
+  }
+
+  eliminarUsuario(id: string){
+    this.usuarioServise.eliminarUsuario(id).then(() => {
+      console.log('el empleado ha sido eliminado con exito');
+      
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
   addUser() {

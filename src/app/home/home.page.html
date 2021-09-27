@@ -27,6 +27,13 @@
       <h3>{{item.name}}</h3>
       <p>{{item.email}}, sexo: {{item.sex}}</p>  
     </ion-label>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="mostrarPop($event)">
+        <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-item>
 
 </ion-list>

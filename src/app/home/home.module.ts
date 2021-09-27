@@ -5,14 +5,22 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { PopInfoComponent } from '../components/pop-info/pop-info.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
+
+  entryComponents: [
+    PopInfoComponent
+  ],
+
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    ComponentsModule
   ],
   declarations: [HomePage]
 })

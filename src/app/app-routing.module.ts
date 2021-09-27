@@ -14,10 +14,7 @@ const routes: Routes = [
   {
     path: 'add-user',
     loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule)
-  },  {
-    path: 'pop-info',
-    loadChildren: () => import('./components/pop-info/pop-info.module').then( m => m.PopInfoPageModule)
-  },
+  }
 
 ];
 
