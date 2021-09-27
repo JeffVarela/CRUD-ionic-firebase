@@ -28,7 +28,7 @@
 
       <!-- radio group -->
 
-      <ion-radio-group [(ngModel)]="usuario.sexo" name="sexo">
+      <ion-radio-group [(ngModel)]="usuario.sexo" name="sexo" required>
 
         <div style="text-align: center;" class="ion-padding">Sexo</div>
 
@@ -42,7 +42,7 @@
       <div style="text-align: center;" class="ion-padding">Ciudad</div>
       <ion-item>
         <ion-label>Ciudades</ion-label>
-        <ion-select [(ngModel)]="usuario.ciudad" name="ciudades">
+        <ion-select [(ngModel)]="usuario.ciudad" name="ciudades" required>
           <ion-select-option *ngFor="let item of ciudades" value="{{item}}">{{item}}</ion-select-option>
         </ion-select>
       </ion-item>

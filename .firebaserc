@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "db-usuarios": {
+      "hosting": {
+        "app": [
+          "db-usuarios"
+        ]
+      }
+    }
+  }
+}
