@@ -49,6 +49,7 @@ export class HomePage {
     else if (data.item === 'Editar')
     {
       console.log('mandar a editar: ' + id);
+      this.redirectUser(id)
     
     }
   } 
@@ -81,9 +82,10 @@ export class HomePage {
       console.log(error);
     })
   }
- /*  redirectUser(id: string){
-   this.router.navigate(['/editUser/',id])
-  } */
+
+  redirectUser(id: string){
+   this.router.navigate(['/edit-user/', id]);
+  }
 
   addUser() {
     this.router.navigate(['/add-user']);
