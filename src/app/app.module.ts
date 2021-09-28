@@ -11,6 +11,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
+import { ComponentsModule } from './components/components.module';
+import { Pipe } from './pipe/pipe.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +21,9 @@ import { environment } from 'src/environments/environment';
            IonicModule.forRoot(),
             AppRoutingModule,
             AngularFireModule.initializeApp(environment.firebaseConfig),
-            AngularFirestoreModule
+            AngularFirestoreModule,
+            ComponentsModule,
+            Pipe
           ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

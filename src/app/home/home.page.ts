@@ -29,7 +29,7 @@ export class HomePage {
   }
 
   /* funcion del pop */
- /*  async mostrarPop(event){
+   async mostrarPop(event, id){
     const popover = await this.popCtrl.create({
       component: PopInfoComponent,
       event: event,
@@ -39,9 +39,23 @@ export class HomePage {
     });
 
     await popover.present()
-    const {data} = await popover.onWillDismiss();  //se ejecuta antes de cerrarce
-    console.log('padre:', data);
-  } */
+    const {data} = await popover.onDidDismiss();  //se ejecuta antes de cerrarce
+
+    if (data.item === 'Borrar')
+    {
+      console.log('mandar a borrar: ' + id);
+      this.eliminarUsuario(id)
+    }
+    else if (data.item === 'Editar')
+    {
+      console.log('mandar a editar: ' + id);
+    
+    }
+  } 
+
+  
+ 
+  /* --------------------------------------------------- */
 
   getUsuario() {
     this.usuarioServise.getUsuario().subscribe(data => {
@@ -71,20 +85,26 @@ export class HomePage {
   addUser() {
     this.router.navigate(['/add-user']);
   }
+  /* ----funcion de buscar */
+
+  textoBuscar = '';
+
+  buscar(event){
+    //console.log(event);
+    this.textoBuscar = event.detail.value;
+  }
 
   /* --------------------------------------------- */
-  async presentActionSheet(id: string) {
+ /*  async presentActionSheet(id: string) {
     const actionSheet = await this.actionSheetCrl.create({
       header: 'Albums',
-      //backdropDismiss: false, /* para que no se cancele el action sheet al tocar la pantalla */
       cssClass: 'my-custom-class',
       buttons: [{
         text: 'Delete',
         role: 'destructive',
         icon: 'trash',
-        cssClass: 'rojo', /* css personalizada para color rojo, creada en global.css */
+        cssClass: 'rojo',
         handler: () => {
-          //console.log('Delete clicked');
           this.eliminarUsuario(id)
         }
       }, {
@@ -107,6 +127,6 @@ export class HomePage {
 
     const { role } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
-  }
+  } */
 
 }

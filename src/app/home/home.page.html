@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" class="ion-no-border">
 
 
     <ion-title>
@@ -13,7 +13,14 @@
     <ion-toolbar>
       <ion-title size="large">Usuarios</ion-title>
     </ion-toolbar>
+    
 </ion-header>
+<!-- barra de busqueda -->
+
+
+<ion-searchbar (ionChange)="buscar($event)"
+               animated
+                ></ion-searchbar>
 
 <!-- lista -->
 
@@ -22,14 +29,14 @@
     <ion-label>Lista de Usuarios</ion-label>
   </ion-list-header>
 
-  <ion-item *ngFor="let item of usuarios">
+  <ion-item *ngFor="let item of usuarios | filtro: textoBuscar: 'name'">
     <ion-label>
       <h3>{{item.name}}</h3>
       <p>{{item.email}}, sexo: {{item.sex}}</p>  
     </ion-label>
 
     <ion-buttons slot="end">
-      <ion-button (click)="presentActionSheet(item.id)">
+      <ion-button (click)="mostrarPop($event, item.id)">
         <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

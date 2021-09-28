@@ -13,7 +13,17 @@ const routes: Routes = [
   },
   {
     path: 'add-user',
-    loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule)
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule)
+      },
+      {
+        path: ':id',
+        loadChildren: () => import('./add-user/add-user.module').then( m => m.AddUserPageModule)
+      }
+      
+    ]
   }
 
 ];

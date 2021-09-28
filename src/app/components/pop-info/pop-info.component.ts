@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { UsuariosService } from 'src/app/service/usuarios.service';
+
 
 @Component({
   selector: 'app-pop-info',
@@ -8,15 +10,15 @@ import { PopoverController } from '@ionic/angular';
 })
 export class PopInfoComponent implements OnInit {
 
-  funciones = ['Borrar','Editar'];
+  funciones = ['Borrar', 'Editar'];
 
   constructor(private popCtrl: PopoverController) { }
 
   ngOnInit() {
   }
 
-  
-  onClick(valor: string){
+
+  onClick(valor: string) {
 
     console.log('itemHijo', valor);
 

@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { PopInfoComponent } from '../components/pop-info/pop-info.component';
 import { ComponentsModule } from '../components/components.module';
+import { Pipe } from '../pipe/pipe.module';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ComponentsModule } from '../components/components.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    Pipe
   ],
   declarations: [HomePage]
 })
