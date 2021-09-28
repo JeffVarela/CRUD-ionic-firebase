@@ -28,7 +28,7 @@ export class HomePage {
    this.getUsuario();
   }
 
-  /* funcion del pop */
+  /* funcion del pop -------------------------------------*/
    async mostrarPop(event, id){
     const popover = await this.popCtrl.create({
       component: PopInfoComponent,
@@ -81,6 +81,9 @@ export class HomePage {
       console.log(error);
     })
   }
+ /*  redirectUser(id: string){
+   this.router.navigate(['/editUser/',id])
+  } */
 
   addUser() {
     this.router.navigate(['/add-user']);
