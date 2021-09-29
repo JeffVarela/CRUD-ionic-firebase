@@ -21,7 +21,11 @@ export class UsuariosService {
     return this.firestore.collection('usuarios').doc(id).delete();
   }
 
+  /* rellenar los datos del formulario para editar */
   getUsuarios(id: string): Observable<any>{
     return this.firestore.collection('usuarios').doc(id).snapshotChanges();
+  }
+  actualizarUsuario(id: string, data: any): Promise<any>{
+    return this.firestore.collection('usuarios').doc(id).update(data);
   }
 }
