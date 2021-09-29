@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { ActionSheetController, PopoverController } from '@ionic/angular';
+import { ActionSheetController, AlertController, PopoverController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { UsuariosService } from '../service/usuarios.service';
 import { PopInfoComponent } from '../components/pop-info/pop-info.component';
@@ -19,7 +19,8 @@ export class HomePage {
   constructor(private router: Router,
     private usuarioServise: UsuariosService,
     private popCtrl: PopoverController,
-    public actionSheetCrl: ActionSheetController) {
+    public actionSheetCrl: ActionSheetController,
+    public alertCtrl: AlertController) {
 
 
 
@@ -39,21 +40,51 @@ export class HomePage {
     await popover.present()
     const {data} = await popover.onDidDismiss();  
 
-    if (data.item === 'Borrar')
+    if (data)
     {
-      //console.log('mandar a borrar: ' + id);
-      this.eliminarUsuario(id)
+      if (data.item === 'Borrar')
+      {
+        //console.log('mandar a borrar: ' + id);
+        this.presentAlertConfirm(id)
+      }
+      else if (data.item === 'Editar')
+      {
+        //console.log('mandar a editar: ' + id);
+        this.redirectUser(id)
+      
+      }
     }
-    else if (data.item === 'Editar')
-    {
-      //console.log('mandar a editar: ' + id);
-      this.redirectUser(id)
     
-    }
-    
-  } 
+  }
+  /* -------------------------Alerta-------------------------- */
 
-  
+  async presentAlertConfirm(id) {
+    const alert = await this.alertCtrl.create({
+      header: '¿Desea eliminar el Usuario?',
+      message: '<strong>Pulse si para confirmar</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Cancelar');
+          }
+        }, {
+          text: 'si',
+          handler: () => {
+           // console.log('Confirm Okay');
+           this.eliminarUsuario(id);
+
+           
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
  
   /* --------------------------------------------------- */
 
@@ -72,6 +103,7 @@ export class HomePage {
       console.log(this.usuarios);
     });
   }
+  /* -------------------------------------------------------------------- */
 
   eliminarUsuario(id: string){
     this.usuarioServise.eliminarUsuario(id).then(() => {
@@ -86,10 +118,12 @@ export class HomePage {
    this.router.navigate(['/edit-user/', id]);
   }
 
+  /* -------------------------------------------------------------- */
+
   addUser() {
     this.router.navigate(['/add-user']);
   }
-  /* ----funcion de buscar */
+  /* ----------funcion de buscar------------------------------------ */
 
   textoBuscar = '';
 
