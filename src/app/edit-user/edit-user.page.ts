@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from '../service/usuarios.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { UsuariosService } from '../service/usuarios.service';
   styleUrls: ['./edit-user.page.scss'],
 })
 export class EditUserPage implements OnInit {
+
+  @ViewChild('formulario') form: NgForm;
 
   usuario = {
     nombre: '',
@@ -20,12 +23,21 @@ export class EditUserPage implements OnInit {
 
   ciudades = ['Managua','Masaya','Granada','Rivas','León','Matagapa']
 
+  id: string;
+
+/* ActivatedRoute para capturar el id que capturamos en la ruta */
   constructor(private usuarioService: UsuariosService,
               private router: Router,
+              private aRoute: ActivatedRoute
               ) { }
 
   ngOnInit() {
+    this.id = this.aRoute.snapshot.paramMap.get('id')
+    console.log(this.id);
+   
+   this.esEditar();
   }
+  
 
   
   onSubmiteTemplate(){
@@ -41,14 +53,22 @@ export class EditUserPage implements OnInit {
       fechaCreacion: new Date(),
       fechaActualizacion: new Date()
     }
-    
-    this.usuarioService.agregarUsuario(usuario).then(() => {
-     console.log('empleado registrado con exito');
-     this.router.navigate(['/home'])
-    }).catch (error => {
-      console.log(error);
-    })
 
   }
+  
+  esEditar(){
+   
+    this.usuarioService.getUsuarios(this.id).subscribe(data => { 
+      console.log(data.payload.data()['name']);
+      this.form.setValue({
+        nombre: data.payload.data()['name'], /* escribir los datos en el input */
+        email: data.payload.data()['email'],
+       // sexo: data.payload.data()['sex'],
+       // ciudad: data.payload.data()['city'],
+      })
+    })
+  
+}
+
 
 }

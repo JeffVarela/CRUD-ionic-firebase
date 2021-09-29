@@ -34,24 +34,23 @@ export class HomePage {
       component: PopInfoComponent,
       event: event,
       mode: 'ios',
-    
-
     });
 
     await popover.present()
-    const {data} = await popover.onDidDismiss();  //se ejecuta antes de cerrarce
+    const {data} = await popover.onDidDismiss();  
 
     if (data.item === 'Borrar')
     {
-      console.log('mandar a borrar: ' + id);
+      //console.log('mandar a borrar: ' + id);
       this.eliminarUsuario(id)
     }
     else if (data.item === 'Editar')
     {
-      console.log('mandar a editar: ' + id);
+      //console.log('mandar a editar: ' + id);
       this.redirectUser(id)
     
     }
+    
   } 
 
   

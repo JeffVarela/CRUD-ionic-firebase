@@ -19,6 +19,9 @@ export class UsuariosService {
   }
   eliminarUsuario(id: string):Promise<any>{
     return this.firestore.collection('usuarios').doc(id).delete();
+  }
 
+  getUsuarios(id: string): Observable<any>{
+    return this.firestore.collection('usuarios').doc(id).snapshotChanges();
   }
 }
