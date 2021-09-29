@@ -40,7 +40,7 @@ export class EditUserPage implements OnInit {
   
 
   
-  onSubmiteTemplate(){
+  onSubmiteTemplate(id: string){
 
     console.log('onSubmiteTemplate se esta ejecutando');
     console.log(this.usuario);
@@ -50,9 +50,12 @@ export class EditUserPage implements OnInit {
       email: this.usuario.email,
       sex: this.usuario.sexo,
       city: this.usuario.ciudad,
-      fechaCreacion: new Date(),
+  
       fechaActualizacion: new Date()
     }
+    this.usuarioService.actualizarUsuario(id, usuario).then(()=> {
+      this.router.navigate(['/home'])
+    })
 
   }
   
@@ -63,8 +66,8 @@ export class EditUserPage implements OnInit {
       this.form.setValue({
         nombre: data.payload.data()['name'], /* escribir los datos en el input */
         email: data.payload.data()['email'],
-       // sexo: data.payload.data()['sex'],
-       // ciudad: data.payload.data()['city'],
+        sexo: data.payload.data()['sex'],
+        ciudades: data.payload.data()['city'],
       })
     })
   
