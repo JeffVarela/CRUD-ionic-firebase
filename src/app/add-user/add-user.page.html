@@ -1,61 +1,51 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-
     <ion-title>Registro de Usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid fixed>
+    <form #formulario="ngForm" (ngSubmit)="onSubmiteTemplate()">
+      <ion-list>
 
-  <form #formulario="ngForm" (ngSubmit)="onSubmiteTemplate()">
-    <ion-list>
-
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input type="text" placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre" required></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" name="email" placeholder="email"
-          pattern="^[A-Z0-9a-z\._%±]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$" [(ngModel)]="usuario.email" required>
-        </ion-input>
-      </ion-item>
-
-      <!-- radio group -->
-
-      <ion-radio-group [(ngModel)]="usuario.sexo" name="sexo" required>
-
-        <div style="text-align: center;" class="ion-padding">Sexo</div>
-
-        <ion-item *ngFor="let item of radioSexo">
-          <ion-label>{{item}}</ion-label>
-          <ion-radio slot="start" value="{{item}}"></ion-radio>
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre" required></ion-input>
         </ion-item>
 
-      </ion-radio-group>
-      <!--  -->
-      <div style="text-align: center;" class="ion-padding">Ciudad</div>
-      <ion-item>
-        <ion-label>Ciudades</ion-label>
-        <ion-select [(ngModel)]="usuario.ciudad" name="ciudades" required>
-          <ion-select-option *ngFor="let item of ciudades" value="{{item}}">{{item}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-
-    </ion-list>
-
-
-    <!-- boton tipo submit que estara desabilitado si el formulario esta invalido -->
-    <ion-button expand="full" type="submit" [disabled]="formulario.invalid">
-      Guardar
-    </ion-button>
-
-  </form>
-
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" name="email" placeholder="email"
+            pattern="^[A-Z0-9a-z\._%±]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$" [(ngModel)]="usuario.email" required>
+          </ion-input>
+        </ion-item>
+        <br>
+        <!-- radio group -->
+        <ion-item>
+          <ion-radio-group [(ngModel)]="usuario.sexo" name="sexo" required>
+            <ion-label>Sexo:</ion-label>
+            <ion-item *ngFor="let item of radioSexo">
+              <ion-label>{{item}}</ion-label>
+              <ion-radio slot="start" value="{{item}}"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+        <!--  -->
+        <ion-item>
+          <ion-label>Ciudad:</ion-label>
+          <ion-select [(ngModel)]="usuario.ciudad" name="ciudades" required>
+            <ion-select-option *ngFor="let item of ciudades" value="{{item}}">{{item}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <!-- boton tipo submit que estara desabilitado si el formulario esta invalido -->
+      <ion-button expand="full" type="submit" [disabled]="formulario.invalid">
+        Guardar
+      </ion-button>
+    </form>
+  </ion-grid>
 </ion-content>

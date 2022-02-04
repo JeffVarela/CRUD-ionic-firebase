@@ -30,3 +30,9 @@ ion-label {
   font-size: large;
   font-weight: bold;
 }
+
+@media (min-width: 700px) {
+  ion-grid {
+      max-width: 50%;
+  }
+}
