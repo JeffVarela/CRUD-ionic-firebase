@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from './components/components.module';
 import { Pipe } from './pipe/pipe.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,8 @@ import { Pipe } from './pipe/pipe.module';
             AngularFireModule.initializeApp(environment.firebaseConfig),
             AngularFirestoreModule,
             ComponentsModule,
-            Pipe
+            Pipe,
+            BrowserAnimationsModule
           ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

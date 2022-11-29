@@ -1,26 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController, PopoverController } from '@ionic/angular';
+import { ActionSheetController, AlertController, PopoverController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { UsuariosService } from '../service/usuarios.service';
 import { PopInfoComponent } from '../components/pop-info/pop-info.component';
+import { trigger, style, animate, transition } from '@angular/animations';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+   animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateX(100%)', opacity: 0}),
+          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ],//importar BrowserAnimation en app.module
+  // animations: [
+  //   trigger(
+  //     'enterAnimation', [
+  //       transition(':enter', [
+  //         style({ opacity: 0}),
+  //         animate('5s', style({ opacity: 1}))
+  //       ])/* ,
+  //       transition(':leave', [
+  //         style({transform: 'translateX(0)', opacity: 1}),
+  //         animate('5s', style({transform: 'translateX(100%)', opacity: 0}))
+  //       ]) */
+  //     ]
+  //   )
+  // ],
 })
 export class HomePage {
 
-
   usuarios: any[] = [];
+  bandMostrar: boolean = true;
 
   constructor(private router: Router,
     private usuarioServise: UsuariosService,
     private popCtrl: PopoverController,
     public actionSheetCrl: ActionSheetController,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private toast: ToastController) {
 
 
 
@@ -30,6 +61,7 @@ export class HomePage {
   }
 
   /* funcion del pop -------------------------------------*/
+
    async mostrarPop(event, id){
     const popover = await this.popCtrl.create({
       component: PopInfoComponent,
@@ -38,7 +70,7 @@ export class HomePage {
     });
 
     await popover.present()
-    const {data} = await popover.onDidDismiss();  
+    const {data} = await popover.onDidDismiss();
 
     if (data)
     {
@@ -51,10 +83,10 @@ export class HomePage {
       {
         //console.log('mandar a editar: ' + id);
         this.redirectUser(id)
-      
+
       }
     }
-    
+
   }
   /* -------------------------Alerta-------------------------- */
 
@@ -76,7 +108,7 @@ export class HomePage {
            // console.log('Confirm Okay');
            this.eliminarUsuario(id);
 
-           
+
           }
         }
       ]
@@ -85,7 +117,7 @@ export class HomePage {
     await alert.present();
   }
 
- 
+
   /* --------------------------------------------------- */
 
   getUsuario() {
@@ -108,7 +140,7 @@ export class HomePage {
   eliminarUsuario(id: string){
     this.usuarioServise.eliminarUsuario(id).then(() => {
       console.log('el empleado ha sido eliminado con exito');
-      
+
     }).catch(error => {
       console.log(error);
     })
@@ -151,7 +183,7 @@ export class HomePage {
         handler: () => {
           console.log('Editar clicked');
         }
-      }, 
+      },
       {
         text: 'Cancel',
         icon: 'close',
@@ -167,4 +199,14 @@ export class HomePage {
     console.log('onDidDismiss resolved with role', role);
   } */
 
+  async mostrartoast(){
+    const toast = await this.toast.create({
+      message: 'Your settings have been saved.',
+      duration: 2000,
+      cssClass: 'toast-class'
+    });
+    toast.present();
+
+    this.bandMostrar = !this.bandMostrar;
+  }
 }
